@@ -313,15 +313,17 @@ int main() {
 
 		// Create some lights for our scene
 		scene->Lights.resize(3);
-		scene->Lights[0].Position = glm::vec3(0.0f, 1.0f, 3.0f);
+		scene->Lights[0].Position = glm::vec3(-1.55f, 1.97f, 6.35f);
 		scene->Lights[0].Color = glm::vec3(0.5f, 0.0f, 0.7f);
-		scene->Lights[0].Range = 10.0f;
+		scene->Lights[0].Range = 73.8f;
 
-		scene->Lights[1].Position = glm::vec3(1.0f, 0.0f, 3.0f);
+		scene->Lights[1].Position = glm::vec3(2.37f, -2.17f, 4.43f);
 		scene->Lights[1].Color = glm::vec3(0.2f, 0.8f, 0.1f);
+		scene->Lights[1].Range = 73.8f;
 
-		scene->Lights[2].Position = glm::vec3(0.0f, 1.0f, 3.0f);
+		scene->Lights[2].Position = glm::vec3(-2.05f, -1.24f, 7.47f);
 		scene->Lights[2].Color = glm::vec3(1.0f, 0.2f, 0.1f);
+		scene->Lights[2].Range = 73.8f;
 
 		// We'll create a mesh that is a simple plane that we can resize later
 		MeshResource::Sptr planeMesh = ResourceManager::CreateAsset<MeshResource>();
@@ -331,7 +333,8 @@ int main() {
 		// Set up the scene's camera
 		GameObject::Sptr camera = scene->CreateGameObject("Main Camera");
 		{
-			camera->SetPostion(glm::vec3(0, 4, 4));
+			camera->SetPostion(glm::vec3(0.05f, 0.43f, 11.47f));
+			camera->SetRotation(glm::vec3(0.f, 0.f, 0.f));
 			camera->LookAt(glm::vec3(0.0f));
 
 			Camera::Sptr cam = camera->Add<Camera>();
