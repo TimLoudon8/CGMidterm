@@ -25,7 +25,6 @@ public:
 protected:
 	//float _impulse;
 	float _force;
-
 	bool _isPressedLeft = false;
 	bool _isPressedRight = false;
 	bool _isPressedUp = false;

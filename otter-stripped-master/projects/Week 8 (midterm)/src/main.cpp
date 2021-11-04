@@ -334,7 +334,7 @@ int main() {
 		GameObject::Sptr camera = scene->CreateGameObject("Main Camera");
 		{
 			camera->SetPostion(glm::vec3(0.05f, 0.43f, 11.47f));
-			camera->SetRotation(glm::vec3(0.f, 0.f, 0.f));
+			camera->SetRotation(glm::vec3(0.f, 1.f, 0.f));
 			camera->LookAt(glm::vec3(0.0f));
 
 			Camera::Sptr cam = camera->Add<Camera>();
@@ -345,22 +345,7 @@ int main() {
 
 		// Set up all our sample objects
 		
-		/*
-		GameObject::Sptr plane = scene->CreateGameObject("Plane");
-		{
-			// Scale up the plane
-			plane->SetPostion(glm::vec3(0.0f, 0.0f, -0.2f));
-			plane->SetScale(glm::vec3(10.0F));
-
-			// Create and attach a RenderComponent to the object to draw our mesh
-			RenderComponent::Sptr renderer = plane->Add<RenderComponent>();
-			renderer->SetMesh(planeMesh);
-			renderer->SetMaterial(boxMaterial);
-
-			// Attach a plane collider that extends infinitely along the X/Y axis
-			RigidBody::Sptr physics = plane->Add<RigidBody>(static by default);//static by default
-			physics->AddCollider(PlaneCollider::Create());
-		}*/
+		
 
 		//grid for snake game
 		GameObject::Sptr grid = scene->CreateGameObject("Grid");
@@ -383,7 +368,7 @@ int main() {
 		GameObject::Sptr snake = scene->CreateGameObject("Snake");
 		{
 			//Set position in the scene
-			snake->SetPostion(glm::vec3(0.0f, 0.0f, 1.0f));
+			snake->SetPostion(glm::vec3(0.5f, 0.5f, 1.0f));
 			snake->SetRotation(glm::vec3(90.0f, 0.0f, 0.0f));
 
 			//Add behaviour for snake
@@ -395,80 +380,13 @@ int main() {
 			renderer->SetMaterial(snakeMaterial);
 
 			//Add static rigid body
-			RigidBody::Sptr physics = snake->Add<RigidBody>(RigidBodyType::Dynamic);
-			physics->AddCollider(BoxCollider::Create());
-
-			// We'll add a behaviour that will interact with our trigger volumes
-			//MaterialSwapBehaviour::Sptr triggerInteraction = snake->Add<MaterialSwapBehaviour>();
-			//triggerInteraction->EnterMaterial = gridMaterial;
-			//triggerInteraction->ExitMaterial = snakeMaterial;
-
-		}
-		/*
-		GameObject::Sptr square = scene->CreateGameObject("Square");
-		{
-			// Set position in the scene
-			square->SetPostion(glm::vec3(0.0f, 0.0f, 2.0f));
-			// Scale down the plane
-			square->SetScale(glm::vec3(0.5f));
-
-			// Create and attach a render component
-			RenderComponent::Sptr renderer = square->Add<RenderComponent>();
-			renderer->SetMesh(planeMesh);
-			renderer->SetMaterial(boxMaterial);
-
-			// This object is a renderable only, it doesn't have any behaviours or
-			// physics bodies attached!
-		}*/
-
-		/*
-		GameObject::Sptr monkey1 = scene->CreateGameObject("Monkey 1");
-		{
-			// Set position in the scene
-			monkey1->SetPostion(glm::vec3(1.5f, 0.0f, 1.0f));
-
-			// Add some behaviour that relies on the physics body
-			monkey1->Add<JumpBehaviour>();
+			RigidBody::Sptr physics = snake->Add<RigidBody>(RigidBodyType::Kinematic);
+			ICollider::Sptr Box1 = physics->AddCollider(BoxCollider::Create(glm::vec3(0.05f, 0.04f, 0.05f)));
+			Box1->SetPosition(glm::vec3(0.0f, 0.04f, 0.0f));
 			
 
-			// Create and attach a renderer for the monkey
-			RenderComponent::Sptr renderer = monkey1->Add<RenderComponent>();
-			renderer->SetMesh(monkeyMesh);
-			renderer->SetMaterial(monkeyMaterial);
-
-			// Add a dynamic rigid body to this monkey
-			RigidBody::Sptr physics = monkey1->Add<RigidBody>(RigidBodyType::Dynamic);
-			physics->AddCollider(ConvexMeshCollider::Create());
-
-
-			// We'll add a behaviour that will interact with our trigger volumes
-			MaterialSwapBehaviour::Sptr triggerInteraction = monkey1->Add<MaterialSwapBehaviour>();
-			triggerInteraction->EnterMaterial = boxMaterial;
-			triggerInteraction->ExitMaterial = monkeyMaterial;
-		}*/
-
-		/*
-		GameObject::Sptr monkey2 = scene->CreateGameObject("Complex Object");
-		{
-			// Set and rotation position in the scene
-			monkey2->SetPostion(glm::vec3(-1.5f, 0.0f, 1.0f));
-			monkey2->SetRotation(glm::vec3(90.0f, 0.0f, 0.0f));
-
-			// Add a render component
-			RenderComponent::Sptr renderer = monkey2->Add<RenderComponent>();
-			renderer->SetMesh(monkeyMesh);
-			renderer->SetMaterial(boxMaterial);
-
-			// This is an example of attaching a component and setting some parameters
-			RotatingBehaviour::Sptr behaviour = monkey2->Add<RotatingBehaviour>();
-			behaviour->RotationSpeed = glm::vec3(0.0f, 0.0f, -90.0f);
 		}
-
-		// Kinematic rigid bodies are those controlled by some outside controller
-		// and ONLY collide with dynamic objects
-		RigidBody::Sptr physics = monkey2->Add<RigidBody>(RigidBodyType::Kinematic);
-		physics->AddCollider(ConvexMeshCollider::Create());
-		*/
+		
 
 		// Create a trigger volume for testing how we can detect collisions with objects!
 		GameObject::Sptr trigger = scene->CreateGameObject("Trigger"); 

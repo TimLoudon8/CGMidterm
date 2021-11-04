@@ -36,38 +36,38 @@ MoveBehaviour::Sptr MoveBehaviour::FromJson(const nlohmann::json & blob) {
 }
 
 void MoveBehaviour::Update(float deltaTime) {
-	bool pressedLeft = glfwGetKey(GetGameObject()->GetScene()->Window, GLFW_KEY_LEFT);
-	bool pressedRight = glfwGetKey(GetGameObject()->GetScene()->Window, GLFW_KEY_RIGHT);
-	bool pressedUp = glfwGetKey(GetGameObject()->GetScene()->Window, GLFW_KEY_UP);
-	bool pressedDown = glfwGetKey(GetGameObject()->GetScene()->Window, GLFW_KEY_DOWN);
+    bool _Up = glfwGetKey(GetGameObject()->GetScene()->Window, GLFW_KEY_UP);
+    bool _Down = glfwGetKey(GetGameObject()->GetScene()->Window, GLFW_KEY_DOWN);
+    bool _Left = glfwGetKey(GetGameObject()->GetScene()->Window, GLFW_KEY_LEFT);
+    bool _Right = glfwGetKey(GetGameObject()->GetScene()->Window, GLFW_KEY_RIGHT);
 
-	if (pressedLeft) {
-		if (_isPressedLeft == false) {
-			_force = -1 * _force; //make negative for left
-			_body->ApplyImpulse(glm::vec3(_force, 0.0f, 0.0f));
-		}
-		_isPressedLeft = pressedLeft;
-	}
-	else if (pressedRight) {
-		if (_isPressedRight == false) {
-			
-			_body->ApplyImpulse(glm::vec3(_force, 0.0f, 0.0f));
-		}
-		_isPressedRight = pressedRight;
-	}
-	else if (pressedUp) {
-		if (_isPressedUp == false) {
+    glm::vec3 current = GetGameObject()->GetPosition();
 
-			_body->ApplyImpulse(glm::vec3(0.0f, _force, 0.0f));
-		}
-		_isPressedUp = pressedUp;
-	}
-	else if (pressedDown) {
-		if (_isPressedDown == false) {
-			_force = -1 * _force;
-			_body->ApplyImpulse(glm::vec3(0.0f, _force, 0.0f));
-		}
-		_isPressedDown = pressedDown;
-	}
+
+    if (_Up) {       
+            GetGameObject()->SetPostion(GetGameObject()->GetPosition() + glm::vec3(0.0f, -0.1f, 0.0f));   
+    }
+    if (_Down) {  
+            GetGameObject()->SetPostion(GetGameObject()->GetPosition() + glm::vec3(0.0f, 0.1f, 0.0f));   
+    }
+    if (_Left) {     
+            GetGameObject()->SetPostion(GetGameObject()->GetPosition() + glm::vec3(0.1f, 0.0f, 0.0f)); 
+    }
+    if (_Right) {   
+            GetGameObject()->SetPostion(GetGameObject()->GetPosition() + glm::vec3(-0.1f, 0.0f, 0.0f));
+    }
+
+    if (GetGameObject()->GetPosition().x >= 9.4) {
+        GetGameObject()->SetPostion(glm::vec3(-9.4, current.y, current.z));
+    }
+    if (GetGameObject()->GetPosition().x <= -9.4) {
+        GetGameObject()->SetPostion(glm::vec3(9.4, current.y, current.z));
+    }
+    if (GetGameObject()->GetPosition().y >= 9.4) {
+        GetGameObject()->SetPostion(glm::vec3(current.x, -9.4, current.z));
+    }
+    if (GetGameObject()->GetPosition().y <= -9.4) {
+        GetGameObject()->SetPostion(glm::vec3(current.x, 9.4, current.z));
+    }
 }
 
